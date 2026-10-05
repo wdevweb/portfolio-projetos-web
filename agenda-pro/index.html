@@ -1,7 +1,42 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AgendaPro: gestão de clientes, serviços e horários."><title>AgendaPro — Gestão de Agendamentos</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2308111f'/%3E%3Crect x='14' y='17' width='36' height='34' rx='7' fill='none' stroke='%235ca9ff' stroke-width='6'/%3E%3Cpath d='M14 28h36M24 12v11M40 12v11' stroke='%235ca9ff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"><link rel="stylesheet" href="../assets/shared.css"></head><body>
-<div class="app-shell"><aside class="sidebar"><a class="brand" href="../"><span class="brand-mark" style="background:linear-gradient(135deg,#5ca9ff,#8d7cff)">A</span>AgendaPro</a><button class="btn mobile-menu" aria-label="Abrir menu">Menu</button><nav class="nav"><a class="active" href="#">Agenda</a><a href="#horarios">Horários</a><a href="../fluxo-pro/">Fluxo Pro</a><a href="../estoque-360/">Estoque 360</a><a href="../">Todos os projetos</a></nav><p class="side-note">Projeto demonstrativo · Jornada completa de agendamento.</p></aside>
-<main class="main"><header class="topbar"><div><div class="eyebrow" style="color:#7dbaff">GESTÃO DE ATENDIMENTOS</div><h1>Agenda clara, operação tranquila</h1><p class="subtitle">Controle horários, clientes, serviços, responsáveis e situação de cada atendimento.</p></div><div class="actions"><button class="btn" id="todayBtn">Mostrar hoje</button><button class="btn primary" id="newBtn" style="background:linear-gradient(135deg,#5ca9ff,#8d7cff);color:white">Novo agendamento</button></div></header>
-<section class="metrics"><article class="metric"><span class="label">Agendamentos</span><strong id="mTotal">0</strong><div class="trend">Período atual</div></article><article class="metric"><span class="label">Confirmados</span><strong id="mConfirmed">0</strong><div class="trend">Agenda assegurada</div></article><article class="metric"><span class="label">Concluídos</span><strong id="mDone">0</strong><div class="trend">Atendimentos realizados</div></article><article class="metric"><span class="label">Receita estimada</span><strong id="mRevenue">R$ 0</strong><div class="trend">Sem cancelamentos</div></article></section>
-<section class="panel" id="horarios"><div class="toolbar"><input class="input" id="search" type="search" placeholder="Buscar cliente, serviço ou profissional"><input class="input" id="dateFilter" type="date" aria-label="Filtrar por data"><select class="select" id="statusFilter"><option value="">Todos os status</option><option>Solicitado</option><option>Confirmado</option><option>Concluído</option><option>Cancelado</option></select><button class="btn small" id="clearBtn">Limpar filtros</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Data e horário</th><th>Cliente</th><th>Serviço</th><th>Profissional</th><th>Status</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table><div class="empty" id="empty" hidden>Nenhum agendamento encontrado.</div></div><footer class="pagination"><span id="pageInfo"></span><div class="page-buttons" id="pageButtons"></div></footer></section></main></div>
-<dialog id="bookingDialog"><form id="bookingForm"><div class="dialog-head"><h2 id="dialogTitle">Novo agendamento</h2><button class="btn small" type="button" data-close>Fechar</button></div><div class="dialog-body"><div class="field wide"><label for="client">Cliente</label><input class="input" id="client" maxlength="70" required></div><div class="field"><label for="service">Serviço</label><input class="input" id="service" maxlength="60" required></div><div class="field"><label for="professional">Profissional</label><input class="input" id="professional" maxlength="60" required></div><div class="field"><label for="date">Data</label><input class="input" id="date" type="date" required></div><div class="field"><label for="time">Horário</label><input class="input" id="time" type="time" required></div><div class="field"><label for="status">Status</label><select class="select" id="status"><option>Solicitado</option><option>Confirmado</option><option>Concluído</option><option>Cancelado</option></select></div><div class="field"><label for="price">Valor</label><input class="input" id="price" type="number" min="0" step="0.01" required></div><div class="field wide"><label for="notes">Observações</label><textarea class="textarea" id="notes" rows="3" maxlength="180"></textarea></div></div><div class="dialog-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="submit">Salvar agendamento</button></div></form></dialog><div class="toast" id="toast"></div><script type="module" src="app.js"></script></body></html>
-
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AgendaPro: gestão de clientes, serviços e horários.">
+  <title>AgendaPro — Gestão de Agendamentos</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23f3f0ff'/%3E%3Crect x='14' y='17' width='36' height='34' rx='7' fill='none' stroke='%23654ee8' stroke-width='6'/%3E%3Cpath d='M14 28h36M24 12v11M40 12v11' stroke='%23654ee8' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body class="calendar-body">
+  <header class="calendar-header">
+    <a class="calendar-brand" href="../"><span>A</span><strong>AgendaPro</strong></a>
+    <nav class="calendar-nav"><a class="active" href="#agenda">Agenda</a><a href="#resumo">Resumo</a><a href="../fluxo-pro/">Fluxo Pro</a><a href="../estoque-360/">Estoque 360</a></nav>
+    <div class="calendar-profile"><span class="profile-dot"></span><strong>William Barbosa</strong></div>
+  </header>
+  <main class="calendar-shell">
+    <section class="calendar-hero">
+      <div><p class="eyebrow">Semana operacional</p><h1>Atendimentos</h1><p>Organize o dia sem perder o contexto de cada cliente.</p></div>
+      <div><button class="btn subtle" id="todayBtn">Ir para hoje</button> <button class="btn primary" id="newBtn">+ Novo agendamento</button></div>
+    </section>
+    <section class="week-strip" aria-label="Dias da semana">
+      <div class="week-day"><span>SEG</span><strong>05</strong></div><div class="week-day active"><span>TER</span><strong>06</strong></div><div class="week-day"><span>QUA</span><strong>07</strong></div><div class="week-day"><span>QUI</span><strong>08</strong></div><div class="week-day"><span>SEX</span><strong>09</strong></div>
+    </section>
+    <section class="calendar-grid">
+      <div class="schedule-panel" id="agenda">
+        <div class="panel-heading"><div><h2>Próximos atendimentos</h2><p>Agenda centralizada por horário</p></div></div>
+        <div class="filters"><input id="search" type="search" placeholder="Buscar cliente ou serviço"><input id="dateFilter" type="date" aria-label="Filtrar por data"><select id="statusFilter"><option value="">Todos os status</option><option>Solicitado</option><option>Confirmado</option><option>Concluído</option><option>Cancelado</option></select><button class="btn" id="clearBtn">Limpar</button></div>
+        <div class="appointment-list" id="rows" aria-live="polite"></div><div class="empty" id="empty" hidden>Nenhum agendamento encontrado.</div>
+        <div class="pagination"><span id="pageInfo"></span><div class="page-buttons" id="pageButtons"></div></div>
+      </div>
+      <aside class="summary-panel" id="resumo">
+        <div class="summary-top"><p>Receita prevista</p><strong id="mRevenue">R$ 0</strong></div>
+        <div class="metric-list"><div class="metric"><span>Agendamentos</span><strong id="mTotal">0</strong></div><div class="metric"><span>Confirmados</span><strong id="mConfirmed">0</strong></div><div class="metric"><span>Concluídos</span><strong id="mDone">0</strong></div></div>
+        <div class="insight"><strong>Próximo passo</strong><p>Confirme solicitações pendentes para reduzir horários ociosos.</p></div>
+      </aside>
+    </section>
+  </main>
+  <dialog id="bookingDialog"><form id="bookingForm"><div class="dialog-head"><h2 id="dialogTitle">Novo agendamento</h2><button class="icon-btn" type="button" data-close aria-label="Fechar">×</button></div><div class="form-grid"><label class="field full"><span>Cliente</span><input id="client" maxlength="70" required></label><label class="field"><span>Serviço</span><input id="service" maxlength="60" required></label><label class="field"><span>Profissional</span><input id="professional" maxlength="60" required></label><label class="field"><span>Data</span><input id="date" type="date" required></label><label class="field"><span>Horário</span><input id="time" type="time" required></label><label class="field"><span>Status</span><select id="status"><option>Solicitado</option><option>Confirmado</option><option>Concluído</option><option>Cancelado</option></select></label><label class="field"><span>Valor</span><input id="price" type="number" min="0" step="0.01" required></label><label class="field full"><span>Observações</span><textarea id="notes" rows="3" maxlength="180"></textarea></label></div><div class="dialog-actions"><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="submit">Salvar agendamento</button></div></form></dialog>
+  <div class="toast" id="toast"></div><script type="module" src="app.js"></script>
+</body>
+</html>
