@@ -2,11 +2,25 @@
 
 Três aplicações front-end completas, em português, desenvolvidas para demonstrar experiência com interfaces responsivas, modelagem de dados e operações CRUD.
 
+**Demonstração:** https://wdevweb.github.io/portfolio-projetos-web/
+
 ## Projetos
 
 - **Fluxo Pro:** gestão de tarefas com prioridades, prazos, progresso, filtros, paginação e exportação JSON.
 - **Estoque 360:** inventário com alertas de reposição, indicadores financeiros, filtros, paginação e exportação CSV.
 - **AgendaPro:** gestão de agendamentos com clientes, serviços, profissionais, status, filtros e receita estimada.
+
+### Fluxo Pro
+
+![Fluxo Pro](portfolio-images/fluxo-pro.png)
+
+### Estoque 360
+
+![Estoque 360](portfolio-images/estoque-360.png)
+
+### AgendaPro
+
+![AgendaPro](portfolio-images/agenda-pro.png)
 
 ## Recursos técnicos
 
@@ -24,4 +38,3 @@ Inicie um servidor HTTP na raiz do projeto e abra o endereço informado no naveg
 ## Observação
 
 Os dados são demonstrativos e permanecem apenas no navegador do visitante.
-
